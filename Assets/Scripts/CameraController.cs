@@ -19,10 +19,13 @@ public class CameraController : MonoBehaviour {
 	// Update is called once per frame
 	void LateUpdate () {
         this.transform.position = player.transform.position + offset;
-        //Vector3 axis = new Vector3(0, 1, 0);
+        Vector3 axis = new Vector3(0, 1, 0);
         //Quaternion q = new Quaternion(Mathf.Sin(Time.deltaTime / 2f) * axis.x, Mathf.Sin(Time.deltaTime / 2f) * axis.y, Mathf.Sin(Time.deltaTime / 2f) * axis.x, Mathf.Cos((Time.deltaTime) / 2f));
         //Quaternion half = q * this.transform.rotation;
         //this.transform.rotation = half;
         playervelo = playervelo - player.transform.position;
-	}
+        float angle = Mathf.Acos(Vector3.Dot(this.transform.forward.normalized, playervelo.normalized) / (this.transform.forward.magnitude * playervelo.magnitude));
+        Quaternion rotator = new Quaternion(Mathf.Sin(angle / 2f) * axis.x, Mathf.Sin(angle / 2f) * axis.y, Mathf.Sin(angle / 2f) * axis.x, Mathf.Cos(angle / 2f));
+        this.transform.rotation = rotator * this.transform.rotation;
+    }
 }

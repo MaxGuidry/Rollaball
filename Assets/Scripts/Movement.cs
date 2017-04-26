@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour {
     private int count;
     public Text countText;
     public Text winText;
-	// Use this for initialization
+    // Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
         count = 0;
