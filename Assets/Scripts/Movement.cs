@@ -9,6 +9,10 @@ public class Movement : MonoBehaviour {
     private int count;
     public Text countText;
     public Text winText;
+    [HideInInspector]
+    public Vector3 velocity;
+    [HideInInspector]
+    public Vector3 acceleration;
     // Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
@@ -27,7 +31,10 @@ public class Movement : MonoBehaviour {
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        rb.AddForce(new Vector3(horizontal * speed, 0f, vertical * speed));
+        Vector3 force = new Vector3(horizontal, 0, vertical);
+        acceleration = force;
+        velocity += (acceleration * Time.deltaTime);
+        gameObject.transform.position += velocity * Time.deltaTime * speed;
     }
     void OnTriggerEnter(Collider g)
     {
